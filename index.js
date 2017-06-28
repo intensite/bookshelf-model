@@ -13,12 +13,14 @@ module.exports = function(bookshelf, dir) {
   })
   .forEach(function(file) 
   {
-    var model = require(path.join(dir, file))(bookshelf); 
-    var name = file[0].toUpperCase() + file.slice(1, file.length - 3).replace(/_([a-z])/g, function (str) { 
-      return str[1].toUpperCase(); 
-    });
+    if (file !== 'index.js') {
+      var model = require(path.join(dir, file))(bookshelf); 
+      var name = file[0].toUpperCase() + file.slice(1, file.length - 3).replace(/_([a-z])/g, function (str) { 
+        return str[1].toUpperCase(); 
+      });
     
-    models[name] = model;
+      models[name] = model;
+    };
   });
 
   Object.keys(models).forEach(function (key) 
